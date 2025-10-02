@@ -17,22 +17,23 @@ const form = document.getElementById("userForm");
 
       // Create a promise
   const form = document.getElementById("userForm");
-  const nameInput = document.getElementById("name");
-  const ageInput = document.getElementById("age");
+    const nameInput = document.getElementById("name");
+    const ageInput = document.getElementById("age");
 
-  form.addEventListener("submit", function (event) {
-    event.preventDefault(); // prevent reload
+    form.addEventListener("submit", function (event) {
+      event.preventDefault(); // prevent page reload
 
-    const name = nameInput.value.trim();
-    const age = parseInt(ageInput.value);
+      const name = nameInput.value.trim();
+      const age = parseInt(ageInput.value);
 
-    if (!name || !ageInput.value) {
-      alert("Please enter valid details");
-      return;
-    }
+      // Validation: Empty inputs
+      if (!name || !ageInput.value) {
+        alert("Please enter valid details");
+        return;
+      }
 
-    function checkAge(name, age) {
-      return new Promise((resolve, reject) => {
+      // Create a promise
+      const promise = new Promise((resolve, reject) => {
         setTimeout(() => {
           if (age > 18) {
             resolve(`Welcome, ${name}. You can vote.`);
@@ -41,14 +42,9 @@ const form = document.getElementById("userForm");
           }
         }, 4000);
       });
-    }
 
-    checkAge(name, age)
-      .then((msg) => {
-        alert(msg);
-      })
-      .catch((err) => {
-        alert(err);
-      });
-  });
+      promise
+        .then((message) => alert(message))
+        .catch((errorMessage) => alert(errorMessage));
+    });
 
